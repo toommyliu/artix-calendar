@@ -23,15 +23,25 @@ export async function GET() {
 		return Response.json({ status: "error", reason: "no calendar script" });
 	}
 
-	const calendar_script_body = calendar_script.rawText;
+	const calendar_script_body = calendar_script.textContent;
 
-	// start
-	const str_1 = calendar_script_body.slice(
-		calendar_script_body.indexOf("[") + 1
-	);
+	// start of events array
+	const str_1 = calendar_script_body
+		.slice(calendar_script_body.indexOf("[") + 1)
+		.trim();
 	// end
 	const str_2 = str_1.slice(0, str_1.lastIndexOf("]"));
-	const json = str_2;
 
-	return Response.json({ status: "ok", json });
+	// the json blob, as text
+	const json = `[${str_2}]`
+		.replaceAll("'", '"')
+		.replace(/\\u0027/g, "'")
+		.replace(/\\u0026/g, "&")
+		.replace(/title/g, '"title"')
+		.replace(/url/g, '"url"')
+		.replace(/start/g, '"start"')
+		.replace(/end:/g, '"end":')
+		.replaceAll('" + "', "");
+
+	return Response.json({ status: "ok", events: JSON.parse(json) });
 }
