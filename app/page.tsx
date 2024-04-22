@@ -63,18 +63,18 @@ export default function Home() {
 		});
 	};
 
-	// TODO: use Data Table ?
+	// TODO: use Data Table
 	return (
 		<div className="container flex mt-10">
 			<div className="flex-1 pr-4">
 				<h2 className="text-xl font-bold mb-4">Upcoming</h2>
-				<ScrollArea className="max-h-[512px] overflow-y-auto rounded-md border">
+				<ScrollArea className="max-h-[640px] overflow-y-auto rounded-md border">
 					<div id="events-upcoming">{map(upcoming)}</div>
 				</ScrollArea>
 			</div>
 			<div className="flex-1 pl-4">
-				<h2 className="text-xl font-bold mb-4">Previous</h2>
-				<ScrollArea className="max-h-[512px] overflow-y-auto rounded-md border">
+				<h2 className="text-xl font-bold mb-4">Past</h2>
+				<ScrollArea className="max-h-[640px] overflow-y-auto rounded-md border">
 					<div id="events-past">{map(past)}</div>
 				</ScrollArea>
 			</div>
