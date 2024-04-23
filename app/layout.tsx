@@ -17,11 +17,10 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		// TODO: improve responsiveness
 		<html lang="en">
 			<body className={inter.className}>
 				{children}
-				<Footer />
+				{/* <Footer /> */}
 			</body>
 		</html>
 	);
