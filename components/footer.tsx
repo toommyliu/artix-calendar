@@ -12,7 +12,7 @@ trademarks of Artix Entertainment.
 
 export default function Footer() {
 	return (
-		<footer className="fixed bottom-0 w-full border-t-2">
+		<footer className="bottom-0 w-full border-t-2 py-4 mt-4">
 			<div className="container p-6">
 				<div className="grid gap-4 lg:grid-cols-2">
 					<div className="mb-6 md:mb-0">

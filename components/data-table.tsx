@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { useState } from "react";
 import {
 	ColumnDef,
 	flexRender,
@@ -25,14 +25,15 @@ import { Input } from "@/components/ui/input";
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
 	data: TData[];
+	type: string;
 }
 
 export function DataTable<TData, TValue>({
 	columns,
 	data,
+	type,
 }: DataTableProps<TData, TValue>) {
-	const [columnFilters, setColumnFilters] =
-		React.useState<ColumnFiltersState>([]);
+	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
 	const table = useReactTable({
 		data,
@@ -48,7 +49,8 @@ export function DataTable<TData, TValue>({
 
 	return (
 		<div>
-			<div className="flex items-center py-4">
+			<div className="flex flex-row space justify-between py-4">
+				<h2 className="text-xl font-bold ml-4 mt-4">{type}</h2>
 				<Input
 					placeholder="Filter Event"
 					value={
@@ -61,10 +63,10 @@ export function DataTable<TData, TValue>({
 							.getColumn("title")
 							?.setFilterValue(event.target.value)
 					}
-					className="max-w-sm -mt-10 ml-60"
+					className="max-w-[128px] mt-3 xs:hidden"
 				/>
 			</div>
-			<div className="rounded-md border">
+			<div className="rounded-md border ml-2">
 				<Table>
 					<TableHeader>
 						{table.getHeaderGroups().map((headerGroup) => (
@@ -127,7 +129,7 @@ export function DataTable<TData, TValue>({
 					Previous
 				</Button>
 				<Button
-					variant="default"
+					variant="secondary"
 					size="sm"
 					onClick={() => table.nextPage()}
 					disabled={!table.getCanNextPage()}
