@@ -1,6 +1,6 @@
 "use client";
 
-import useSWR from "swr";
+import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 
 import { columns, type Event } from "@/components/columns";
@@ -8,30 +8,27 @@ import { DataTable } from "@/components/data-table";
 import ThemeToggle from "@/components/theme-toggle";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Footer from "@/components/footer";
+import type { ReactNode } from "react";
 
-const fetcher = (url: string): Promise<JSONResponse> =>
-	fetch(url, { next: { revalidate: 1_000 * 60 * 60 * 24 /* 1d */ } }).then(
-		(res) => res.json()
-	);
+const Center = ({ children }: { children: ReactNode }) => (
+	<div className="flex flex-row min-h-screen justify-center items-center">
+		{children}
+	</div>
+);
 
 export default function Home() {
-	const { data, error, isLoading } = useSWR<JSONResponse>(
-		"/api/calendar",
-		fetcher
-	);
-
-	if (error || data?.status === "error")
-		return (
-			<div>
-				an error occured while trying to fetch the latest calendar data.
-				{/* @ts-expect-error */}
-				reason: {data?.error}
-			</div>
-		);
+	const { data, error, isLoading } = useQuery<JSONResponse>({
+		queryKey: ["calendar"],
+		queryFn: async () => {
+			return fetch("/api/calendar", {
+				next: { revalidate: 1_000 * 60 * 60 * 24 /* 1 day */ },
+			}).then((res) => res.json());
+		},
+	});
 
 	if (isLoading) {
 		return (
-			<div className="flex flex-row min-h-screen justify-center items-center">
+			<Center>
 				<div className="flex flex-col items-center justify-center px-4 py-4 space-y-4">
 					<div
 						className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500"
@@ -40,7 +37,25 @@ export default function Home() {
 					/>
 					<span>Loading...</span>
 				</div>
-			</div>
+			</Center>
+		);
+	}
+
+	if (error || data?.status === "error") {
+		const data_ = data as Exclude<JSONResponse, { status: "ok" }>;
+		return (
+			<Center>
+				<div className="flex flex-col text-center">
+					An error occured while trying to fetch the calendar data.
+					<br />
+					Reason:{" "}
+					{data_.reason === "no html"
+						? "failed to get events data"
+						: data_.reason === "no calendar script"
+						? "Failed to find events data"
+						: "unknown"}
+				</div>
+			</Center>
 		);
 	}
 
