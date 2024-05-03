@@ -25,13 +25,11 @@ import { Input } from "@/components/ui/input";
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
 	data: TData[];
-	type: string;
 }
 
 export function DataTable<TData, TValue>({
 	columns,
 	data,
-	type,
 }: DataTableProps<TData, TValue>) {
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -49,8 +47,7 @@ export function DataTable<TData, TValue>({
 
 	return (
 		<div>
-			<div className="flex flex-row space justify-between py-4">
-				<h2 className="text-xl font-bold ml-4 mt-4">{type}</h2>
+			<div className="py-4">
 				<Input
 					placeholder="Filter Event"
 					value={
@@ -63,10 +60,9 @@ export function DataTable<TData, TValue>({
 							.getColumn("title")
 							?.setFilterValue(event.target.value)
 					}
-					className="max-w-[128px] mt-3 xs:hidden"
 				/>
 			</div>
-			<div className="rounded-md border ml-2">
+			<div className="rounded-md border">
 				<Table>
 					<TableHeader>
 						{table.getHeaderGroups().map((headerGroup) => (
