@@ -7,6 +7,7 @@ import { columns, type Event } from "@/components/columns";
 import { DataTable } from "@/components/data-table";
 import ThemeToggle from "@/components/theme-toggle";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Footer from "@/components/footer";
 
 const fetcher = (url: string): Promise<JSONResponse> =>
 	fetch(url, { next: { revalidate: 1_000 * 60 * 60 * 24 /* 1d */ } }).then(
@@ -28,7 +29,20 @@ export default function Home() {
 			</div>
 		);
 
-	if (isLoading) return <div>loading...</div>;
+	if (isLoading) {
+		return (
+			<div className="flex flex-row min-h-screen justify-center items-center">
+				<div className="flex flex-col items-center justify-center px-4 py-4 space-y-4">
+					<div
+						className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500"
+						role="status"
+						aria-label="loading"
+					/>
+					<span>Loading...</span>
+				</div>
+			</div>
+		);
+	}
 
 	const { events } = data as { status: "ok"; events: Event[] };
 
@@ -74,6 +88,7 @@ export default function Home() {
 					</TabsContent>
 				</Tabs>
 			</div>
+			<Footer />
 		</>
 	);
 }
