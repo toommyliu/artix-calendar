@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { GithubIcon } from "lucide-react";
 
 const DISCLAIMER = String.raw`
-"Artix Games Calendar Viewer" is not
+"AECalendar" is not
 endorsed by Artix Entertainment and does not reflect the
 views or opinions of Artix Entertainment or anyone
 officially involved in producing or managing Artix
@@ -12,38 +16,45 @@ trademarks of Artix Entertainment.
 
 export default function Footer() {
 	return (
-		<footer className="bottom-0 w-full border-t-2 py-4 mt-4">
-			<div className="container p-6">
-				<div className="grid gap-4 lg:grid-cols-2">
-					<div className="mb-6 md:mb-0">
-						<p className="mb-4 text-sm">{DISCLAIMER}</p>
+		<footer className="border-t-2">
+			<div className="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
+				<div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+					<div>
+						<p className="mr-5 h-6 sm:h-9 font-medium">Heads up!</p>
+						<p className="max-w-xs mt-4 text-sm text-gray-600">
+							{DISCLAIMER}
+						</p>
 					</div>
-
-					<div className="mb-6 md:mb-0 flex flex-col items-end">
-						<Link
-							href="https://artix.com/"
-							rel="noopener noreferrer"
-							target="_blank"
-							className="text-blue-600 hover:text-blue-800"
-						>
-							Artix Entertainment
-						</Link>
-						<Link
-							href="https://www.aq.com/"
-							rel="noopener noreferrer"
-							target="_blank"
-							className="text-blue-600 hover:text-blue-800"
-						>
-							AdventureQuest Worlds
-						</Link>
-						<Link
-							href="https://www.artix.com/calendar"
-							rel="noopener noreferrer"
-							target="_blank"
-							className="text-blue-600 hover:text-blue-800"
-						>
-							Calendar Data Source
-						</Link>
+					<div className="grid grid-cols-1 gap-8 lg:col-span-2 sm:grid-cols-2 lg:grid-cols-4">
+						<div>
+							<p className="font-medium">Helpful Links</p>
+							<nav className="flex flex-col mt-4 space-y-2 text-sm text-gray-500">
+								<Link
+									className="hover:opacity-75"
+									href="https://www.aq.com/"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									AQWorlds
+								</Link>
+								<Link
+									className="hover:opacity-75"
+									href="https://www.artix.com/calendar"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Artix Calendar
+								</Link>
+								<Link
+									className="hover:opacity-75"
+									href="https://github.com/toommyliu/artix-calendar"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									View on Github
+								</Link>
+							</nav>
+						</div>
 					</div>
 				</div>
 			</div>
