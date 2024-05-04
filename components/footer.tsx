@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { GithubIcon } from "lucide-react";
 
 const DISCLAIMER = String.raw`
 "AECalendar" is not
