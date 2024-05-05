@@ -49,7 +49,6 @@ export const columns: ColumnDef<Event>[] = [
 			);
 		},
 	},
-	},
 	// {
 	// 	accessorKey: "action",
 	// 	header: "",
