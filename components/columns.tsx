@@ -6,8 +6,12 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import pluginUtc from "dayjs/plugin/utc";
+import pluginTimezone from "dayjs/plugin/timezone";
 
 dayjs.extend(relativeTime);
+dayjs.extend(pluginUtc);
+dayjs.extend(pluginTimezone);
 
 export const columns: ColumnDef<Event>[] = [
 	{
@@ -31,13 +35,20 @@ export const columns: ColumnDef<Event>[] = [
 		accessorKey: "start",
 		header: "Date",
 		cell: ({ row }) => {
-			const date = row.getValue<string>("start");
+			const { url } = row.original;
+			const url_ = new URL(decodeURIComponent(url));
+			const dateAndTime = url_.searchParams.get("d")!;
+
+			const d = dayjs(dateAndTime);
+			d.tz("America/New_York");
+
 			return (
 				<p>
-					{date} ({dayjs(date).fromNow()})
+					{d.format("YYYY-MM-DD hh:mm A")} ({d.fromNow(false)})
 				</p>
 			);
 		},
+	},
 	},
 	// {
 	// 	accessorKey: "action",
