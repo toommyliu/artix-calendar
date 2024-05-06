@@ -9,8 +9,8 @@ import { Providers } from "@/components/providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Artix calendar",
-	description: "View Artix.com calendar in an easy-to-read format.",
+	title: "AECalendar",
+	description: "An alternative view for Artix.com/calendar with additional functionality.",
 };
 
 export default function RootLayout({
