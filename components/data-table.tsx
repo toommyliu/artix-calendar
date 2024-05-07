@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 import {
 	ColumnDef,
 	flexRender,

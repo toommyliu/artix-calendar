@@ -1,3 +1,5 @@
+"use server";
+
 import { parse } from "node-html-parser";
 
 export async function GET() {

@@ -9,6 +9,16 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import pluginUtc from "dayjs/plugin/utc";
 import pluginTimezone from "dayjs/plugin/timezone";
 
+import {
+	DropdownMenu,
+	DropdownMenuTrigger,
+	DropdownMenuContent,
+	DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { MoreHorizontal } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
 dayjs.extend(relativeTime);
 dayjs.extend(pluginUtc);
 dayjs.extend(pluginTimezone);
@@ -49,36 +59,36 @@ export const columns: ColumnDef<Event>[] = [
 			);
 		},
 	},
-	// {
-	// 	accessorKey: "action",
-	// 	header: "",
-	// 	cell: ({ row }) => {
-	// 		return (
-	// 			<DropdownMenu>
-	// 				<DropdownMenuTrigger asChild>
-	// 					<Button variant="ghost" className="h-8 w-8 p-0">
-	// 						<span className="sr-only">Open menu</span>
-	// 						<MoreHorizontal className="h-4 w-4" />
-	// 					</Button>
-	// 				</DropdownMenuTrigger>
-	// 				<DropdownMenuContent align="end">
-	// 					<DropdownMenuLabel>Actions</DropdownMenuLabel>
-	// 					<DropdownMenuItem
-	// 						onClick={() =>
-	// 							window.open(
-	// 								row.original.url,
-	// 								undefined,
-	// 								"noopener noreferrer"
-	// 							)
-	// 						}
-	// 					>
-	// 						Open in new tab
-	// 					</DropdownMenuItem>
-	// 				</DropdownMenuContent>
-	// 			</DropdownMenu>
-	// 		);
-	// 	},
-	// },
+	{
+		accessorKey: "action",
+		header: "",
+		cell: ({ row }) => {
+			return (
+				<Dialog>
+					<DropdownMenu>
+						<DropdownMenuTrigger>
+							<Button variant="ghost" className="size-8 p-0">
+								<MoreHorizontal className="size-4" />
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent>
+							<DropdownMenuItem>
+								<DialogTrigger>Preview</DialogTrigger>
+							</DropdownMenuItem>
+						</DropdownMenuContent>
+					</DropdownMenu>
+					<DialogContent className="min-w-[75%] min-h-[75%]">
+						<iframe
+							title={row.original.title}
+							src={"/api/calendar/event?url=" + row.original.url}
+							width="100%"
+							height="100%"
+						/>
+					</DialogContent>
+				</Dialog>
+			);
+		},
+	},
 ];
 
 export type Event = {
