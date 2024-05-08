@@ -8,13 +8,7 @@ import { DataTable } from "@/components/data-table";
 import ThemeToggle from "@/components/theme-toggle";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Footer from "@/components/footer";
-import type { ReactNode } from "react";
-
-const Center = ({ children }: { children: ReactNode }) => (
-	<div className="flex flex-row min-h-screen justify-center items-center">
-		{children}
-	</div>
-);
+import { Center } from "@/components/center";
 
 export default function Home() {
 	const { data, error, isLoading } = useQuery<JSONResponse>({

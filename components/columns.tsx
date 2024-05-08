@@ -80,7 +80,7 @@ export const columns: ColumnDef<Event>[] = [
 					<DialogContent className="min-w-[75%] min-h-[75%]">
 						<iframe
 							title={row.original.title}
-							src={"/api/calendar/event?url=" + row.original.url}
+							src={`/event?url=${row.original.url}`}
 							width="100%"
 							height="100%"
 						/>

@@ -1,16 +1,9 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 
 import { ThemeProvider } from "@/components/theme-provider";
-import { Providers } from "@/components/providers";
 
 const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-	title: "AECalendar",
-	description: "An alternative view for Artix.com/calendar with additional functionality.",
-};
 
 export default function RootLayout({
 	children,
@@ -26,7 +19,7 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<Providers>{children}</Providers>
+					{children}
 				</ThemeProvider>
 			</body>
 		</html>
