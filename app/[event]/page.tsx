@@ -28,18 +28,20 @@ export default function Page() {
 			}
 		}
 
-		if (data) {
-			console.log(data);
-		}
-
 		load();
-	}, [url, refetch, data]);
+	}, [url, refetch]);
 
 	if (!url) {
 		return notFound();
 	}
 
-	if (isLoading) {
+	if (
+		isLoading ||
+		!data?.body ||
+		!data?.title ||
+		!data?.img_url ||
+		!data?.source
+	) {
 		return (
 			<Center>
 				<div className="flex flex-col items-center justify-center px-4 py-4 space-y-4">
@@ -73,18 +75,19 @@ export default function Page() {
 				<div className="flex flex-col min-h-screen justify-center items-center">
 					<div className="min-w-1/3 min-h-1/3 rounded-md py-4">
 						<NextImage
-							src={data!.img_url}
-							alt={data!.title}
+							src={data.img_url}
+							alt={data.title}
 							width={0}
 							height={0}
 							sizes="40vw"
 							style={{ width: "100%" }}
 						/>
 					</div>
-					<p className="font-bold text-2xl">{data!.title}</p>
+
+					<p className="font-bold text-2xl">{data.title}</p>
 					<div className="container overflow-auto">
 						<pre className="text-lg whitespace-pre-line text-center">
-							{data!.body}
+							{data.body}
 						</pre>
 					</div>
 				</div>
