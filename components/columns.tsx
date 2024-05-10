@@ -52,11 +52,7 @@ export const columns: ColumnDef<Event>[] = [
 			const d = dayjs(dateAndTime);
 			d.tz("America/New_York");
 
-			return (
-				<p>
-					{d.format("YYYY-MM-DD hh:mm A")} ({d.fromNow(false)})
-				</p>
-			);
+			return <p>{d.format("dddd, YYYY-MM-DD")}</p>;
 		},
 	},
 	{
